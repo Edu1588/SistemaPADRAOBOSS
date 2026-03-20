@@ -23,6 +23,7 @@ export function Admin({
   const [editingBooking, setEditingBooking] = useState<Booking | null>(null);
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
+  const [serviceToDelete, setServiceToDelete] = useState<Service | null>(null);
 
   // Group bookings by date
   const groupedBookings = bookings.reduce((acc, booking) => {
@@ -193,11 +194,7 @@ export function Admin({
                       <Edit2 className="w-4 h-4" /> Editar
                     </button>
                     <button
-                      onClick={() => {
-                        if (confirm('Tem certeza que deseja excluir este serviço?')) {
-                          onDeleteService(s.id);
-                        }
-                      }}
+                      onClick={() => setServiceToDelete(s)}
                       className="px-3 bg-red-500/10 text-red-500 rounded-lg hover:bg-red-500/20 transition-colors"
                       title="Excluir"
                     >
@@ -349,6 +346,40 @@ export function Admin({
           </div>
         </div>
       )}
+      {/* Delete Service Confirmation Modal */}
+      {serviceToDelete && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-md p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold text-white">Excluir Serviço</h3>
+              <button onClick={() => setServiceToDelete(null)} className="text-zinc-400 hover:text-white">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <p className="text-zinc-300 mb-6">
+              Tem certeza que deseja excluir o serviço <strong className="text-white">{serviceToDelete.name}</strong>? Esta ação não pode ser desfeita.
+            </p>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setServiceToDelete(null)}
+                className="flex-1 bg-zinc-800 text-white py-3 rounded-xl font-bold hover:bg-zinc-700 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => {
+                  onDeleteService(serviceToDelete.id);
+                  setServiceToDelete(null);
+                }}
+                className="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold hover:bg-red-600 transition-colors"
+              >
+                Excluir
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

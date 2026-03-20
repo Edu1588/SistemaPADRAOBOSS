@@ -13,13 +13,13 @@ import { Booking, CustomerInfo, Service } from './types';
 type View = 'home' | 'services' | 'datetime' | 'form' | 'success';
 
 const INITIAL_SERVICES: Service[] = [
-  { id: 'corte', name: 'Corte com Lavagem e Finalização', price: 'R$ 45,00', icon: 'scissors' },
-  { id: 'barba', name: 'Barba com Toalha Quente', price: 'R$ 35,00', icon: 'user' },
-  { id: 'limpeza', name: 'Limpeza de Pele com Esfoliante', price: 'R$ 25,00', icon: 'sparkles' },
-  { id: 'selagem', name: 'Selagem e Alisamento', price: 'R$ 80,00', icon: 'zap' },
-  { id: 'descoloracao', name: 'Descoloração (Platinado)', price: 'R$ 100,00', icon: 'droplet' },
-  { id: 'sobrancelha', name: 'Sobrancelha', price: 'R$ 15,00', icon: 'scissors' },
-  { id: 'hidratacao', name: 'Hidratação de Cabelo e Barba', price: 'R$ 30,00', icon: 'droplet' },
+  { id: 'corte', name: 'Corte com Lavagem e Finalização', price: 'R$ 45,00', icon: 'scissors', image: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=800&auto=format&fit=crop' },
+  { id: 'barba', name: 'Barba com Toalha Quente', price: 'R$ 35,00', icon: 'user', image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop' },
+  { id: 'limpeza', name: 'Limpeza de Pele com Esfoliante', price: 'R$ 25,00', icon: 'sparkles', image: 'https://images.unsplash.com/photo-1512496015851-a1cbfc38680c?q=80&w=800&auto=format&fit=crop' },
+  { id: 'selagem', name: 'Selagem e Alisamento', price: 'R$ 80,00', icon: 'zap', image: 'https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=800&auto=format&fit=crop' },
+  { id: 'descoloracao', name: 'Descoloração (Platinado)', price: 'R$ 100,00', icon: 'droplet', image: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop' },
+  { id: 'sobrancelha', name: 'Sobrancelha', price: 'R$ 15,00', icon: 'scissors', image: 'https://images.unsplash.com/photo-1534723452862-4c874018d66d?q=80&w=800&auto=format&fit=crop' },
+  { id: 'hidratacao', name: 'Hidratação de Cabelo e Barba', price: 'R$ 30,00', icon: 'droplet', image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=800&auto=format&fit=crop' },
 ];
 
 const BUSINESS_HOURS = { start: 10, end: 19 }; // 10h às 19h

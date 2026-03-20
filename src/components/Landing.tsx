@@ -1,6 +1,13 @@
 import { ArrowDown, ArrowUp, Award, Calendar, Coffee, Mail, MapPin, Menu, MessageCircle, Phone, Scissors, Star, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
+const IMAGES_TRANSITION = [
+  "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop"
+];
+
 interface LandingProps {
   onStartBooking: () => void;
 }
@@ -8,6 +15,14 @@ interface LandingProps {
 export function Landing({ onStartBooking }: LandingProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % IMAGES_TRANSITION.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     // SEO Optimization
@@ -123,22 +138,19 @@ export function Landing({ onStartBooking }: LandingProps) {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full relative z-20">
-          <div className="flex flex-col lg:flex-row items-center justify-center relative min-h-[600px]">
+          <div className="flex flex-col-reverse lg:flex-row items-center justify-center relative min-h-[600px]">
             
             {/* Esquerda: Video Ilustração (Foreground) */}
-            <div className="lg:absolute lg:left-0 lg:bottom-0 z-30 w-full max-w-md lg:max-w-[32rem] pointer-events-none flex justify-center lg:justify-start -mb-10 lg:mb-0">
-                <video 
-                  src="https://eionstudio.com.br/wp-content/uploads/2026/03/Sequencia-01222.mov" 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline
-                  className="w-full h-auto object-contain drop-shadow-2xl"
+            <div className="lg:absolute lg:left-0 lg:bottom-0 z-30 w-full max-w-[80%] sm:max-w-sm lg:max-w-[32rem] pointer-events-none flex justify-center lg:justify-start -mb-20 lg:-mb-32 mt-10 lg:mt-0">
+                <img 
+                  src="https://eionstudio.com.br/wp-content/uploads/2026/03/Sequencia-01_2-2.gif" 
+                  alt="Barbeiro em ação"
+                  className="w-full h-auto object-contain object-bottom drop-shadow-2xl"
                 />
             </div>
 
             {/* Direita: Textos com Borda Amarela */}
-            <div className="border border-[#FFB800] p-8 lg:p-16 lg:ml-64 relative z-20 w-full max-w-3xl bg-zinc-950/40 backdrop-blur-sm mt-10 lg:mt-0">
+            <div className="border border-[#FFB800] p-8 lg:p-16 lg:ml-64 relative z-20 w-full max-w-3xl bg-zinc-950/40 backdrop-blur-sm">
               <div className="mb-6">
                 <span className="text-white font-bold uppercase tracking-[0.2em] text-sm">
                   Salão Boss
@@ -156,7 +168,7 @@ export function Landing({ onStartBooking }: LandingProps) {
               </p>
 
               {/* Social Icons & Map */}
-              <div className="flex items-center gap-6">
+              <div className="flex items-center justify-center gap-6">
                 <a href="#" aria-label="Instagram" className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-[#FFB800] hover:border-[#FFB800] transition-all">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                 </a>
@@ -298,12 +310,15 @@ export function Landing({ onStartBooking }: LandingProps) {
             {/* Imagem Direita Escura */}
             <div className="flex justify-center lg:justify-end relative z-20">
               <div className="w-full max-w-md aspect-[3/4] border border-[#FFB800] rounded-lg relative overflow-hidden bg-zinc-900 flex items-center justify-center p-6 text-center">
-                <img 
-                  src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop" 
-                  alt="Ambiente" 
-                  className="w-full h-full object-cover absolute inset-0 opacity-50"
-                  referrerPolicy="no-referrer"
-                />
+                {IMAGES_TRANSITION.map((src, idx) => (
+                  <img 
+                    key={src}
+                    src={src} 
+                    alt="Ambiente" 
+                    className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${idx === currentImageIndex ? 'opacity-50' : 'opacity-0'}`}
+                    referrerPolicy="no-referrer"
+                  />
+                ))}
                 <span className="text-white font-bold uppercase tracking-widest text-xl relative z-10">Padrão Boss</span>
                 {/* Badge redonda simulando a do canto na imagem */}
                 <div className="absolute bottom-6 right-6 w-16 h-16 bg-[#FFB800] rounded-full flex items-center justify-center shadow-lg border-4 border-black z-10">

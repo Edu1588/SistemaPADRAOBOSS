@@ -65,9 +65,15 @@ export function Services({ services, selectedService, onSelectService, onContinu
                 )}
 
                 <div className={`flex ${isWide ? 'flex-row items-center gap-4' : 'flex-col items-center'} z-10`}>
-                  <div className={`p-3 rounded-2xl ${isSelected ? 'bg-black/10' : 'bg-zinc-800/50 group-hover:bg-zinc-800'} transition-colors ${isWide ? '' : 'mb-4'}`}>
-                    <Icon className={`w-8 h-8 ${isSelected ? 'text-black' : 'text-[#FFB800]'}`} />
-                  </div>
+                  {service.image ? (
+                    <div className={`w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0 border-2 ${isSelected ? 'border-black/20' : 'border-zinc-800'} ${isWide ? '' : 'mb-4'}`}>
+                      <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <div className={`p-3 rounded-2xl ${isSelected ? 'bg-black/10' : 'bg-zinc-800/50 group-hover:bg-zinc-800'} transition-colors ${isWide ? '' : 'mb-4'}`}>
+                      <Icon className={`w-8 h-8 ${isSelected ? 'text-black' : 'text-[#FFB800]'}`} />
+                    </div>
+                  )}
                   <span className={`block font-bold text-lg ${isSelected ? 'text-black' : 'text-white'}`}>
                     {service.name}
                   </span>
@@ -85,14 +91,14 @@ export function Services({ services, selectedService, onSelectService, onContinu
       </div>
 
       {/* WhatsApp Button */}
-      <div className="mt-8 flex justify-center">
+      <div className="mt-8 flex justify-center pb-24">
         <a
           href="https://wa.me/5511966310835"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full max-w-md bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 font-bold py-4 rounded-xl flex justify-center items-center gap-2 hover:bg-[#25D366]/20 transition-colors"
+          className="text-zinc-400 hover:text-white underline underline-offset-4 transition-colors text-sm font-medium"
         >
-          <MessageCircle className="w-5 h-5" /> Falar com o Boss
+          Falar com o Boss
         </a>
       </div>
 
